@@ -75,15 +75,13 @@ body {
 /* 장바구니 상품 카드 */
 .cart-item {
   padding: 18px;
-
   background: #fffdf2;
   border: 1px solid #e5e0c8;
   border-radius: 12px;
-
   display: flex;
-  flex-direction: column;
+  justify-content:space-between;
+  align-items:center;
   gap: 8px;
-
   transition: 0.2s;
 }
 
