@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: "Pretendard";
+    src: url(../font/PretendardVariable.ttf) format("truetype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  word-break: keep-all;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  font-size:20px;
+}
+
+body {
+  line-height: 1.5;
+  color: #333;
+  max-width:1200px;
+  width:100%;
+  margin:0 auto;
+  text-align:center;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size:1rem;
+}
+
+.fadeIn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hide {
+  display: none;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.none {
+  pointer-events: none;
+  opacity: 0.5;
+}
