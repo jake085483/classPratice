@@ -1,9 +1,11 @@
 // Beverage.js
 export class Beverage {
-  constructor(index, name, price) {
+  constructor(index, name, price, options, sizes) {
     this.id = index;
     this.name = name;
     this.price = price;
+    this.options = options;
+    this.sizes = sizes;
   }
 
   getReceipt(option) {
