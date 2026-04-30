@@ -83,15 +83,14 @@ function saveWalletAccount() {
  */
 const couponData = [
   {
-    code: "FIRST10",
-    type: "percent",
-    value: 30,
-    limit: 10
+    code: "1",
+    type: "fixed",
+    value: 1000,
   },
   {
-    code: "COFFEE500",
-    type: "fixed",
-    value: 500,
-    limit: 10
+    code: "cenacle2026",
+    type: "percent",
+    value: 30,
+    limit: 1
   }
 ];

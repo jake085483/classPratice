@@ -71,7 +71,7 @@ updatePaymentPrice();
 function applyCoupon() {
   /* 총 금액 가져오기 */
   const totalPrice = cart.getTotalPrice();
-  const inputCode = couponInput.value.trim().toUpperCase();
+  const inputCode = couponInput.value.trim().toLowerCase();
 
   /* 장바구니가 비어 있을 경우 */
   if (totalPrice === 0) {
@@ -93,7 +93,7 @@ function applyCoupon() {
 
   // 입력한 쿠폰 코드와 일치하는 쿠폰 찾기
   const coupon = couponData.find((item) => {
-    return item.code === inputCode;
+    return item.code.toLowerCase() === inputCode;
   });
 
   // 쿠폰 번호가 couponData에 없는 경우
@@ -110,7 +110,7 @@ function applyCoupon() {
   /* 쿠폰 사용 횟수가 한도에 도달했을 경우 */
   if (usedCount >= coupon.limit) {
     appliedCoupon = null;
-    couponMessage.textContent = "선착순 쿠폰이 모두 소진되었습니다.";
+    couponMessage.textContent = "해당 쿠폰이 모두 소진되었습니다.";
     couponCancelBtn.classList.add("hide");
     updatePaymentPrice();
     return;
@@ -124,7 +124,8 @@ function applyCoupon() {
   couponCancelBtn.classList.remove("hide");
 
   /* 쿠폰 적용 메시지 표시 */
-  couponMessage.textContent = `${coupon.code} 쿠폰이 적용되었습니다. 남은 수량: ${coupon.limit - usedCount}개`;
+  couponMessage.textContent = `쿠폰이 적용되었습니다.`;
+  /* couponMessage.textContent = `${coupon.code} 쿠폰이 적용되었습니다. 남은 수량: ${coupon.limit - usedCount}개`; */
 
   updatePaymentPrice();
 }
@@ -240,6 +241,8 @@ document.addEventListener("click", (e) => {
       cart.items = [];
       cart.save();
       cart.render();
+
+      couponInput.value = "";
 
       // 쿠폰 상태 초기화
       cancelCoupon(false);
