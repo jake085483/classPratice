@@ -20,3 +20,5 @@ const optionPriceMap = {
   HOT: 0,
   ICE: 500
 };
+
+let walletAccount = 1540000; // 초기 지갑 금액

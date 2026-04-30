@@ -8,7 +8,35 @@ const beverages = beverageData.map((data, index) => {
   return new Beverage(index + 1, data.name, data.price);
 });
 
+const wallet = document.querySelector(".wallet-amount");
+wallet.textContent = walletAccount;
+
+const walletWrap = document.querySelector(".wallet");
+function updateWallet() {
+  walletWrap.textContent = `지갑에 있는 금액: ${walletAccount}원`;
+}
+
+
 const cart = new Cart();
+
+const cartCount = document.querySelector(".cart-count");
+
+function updateCartCount() {
+  if (!cartCount) return;
+
+  const count = cart.getTotalQuantity();
+
+  cartCount.textContent = count;
+
+  if (count === 0) {
+    cartCount.classList.add("hide");
+  } else {
+    cartCount.classList.remove("hide");
+  }
+
+}
+
+updateCartCount();
 
 const menuList = document.querySelector(".menu-list");
 
@@ -87,34 +115,10 @@ document.addEventListener("click", (e) => {
       option,
       size
     });
+    updateCartCount();
   }
 
-  // 장바구니 + 버튼
-  if (e.target.classList.contains("plus-btn")) {
-    cart.increase(
-      Number(e.target.dataset.id),
-      e.target.dataset.option,
-      e.target.dataset.size
-    );
-  }
-
-  // 장바구니 - 버튼
-  if (e.target.classList.contains("minus-btn")) {
-    cart.decrease(
-      Number(e.target.dataset.id),
-      e.target.dataset.option,
-      e.target.dataset.size
-    );
-  }
-
-  // 장바구니 삭제 버튼
-  if (e.target.classList.contains("remove-btn")) {
-    cart.remove(
-      Number(e.target.dataset.id),
-      e.target.dataset.option,
-      e.target.dataset.size
-    );
-  }
+  
 });
 
 document.addEventListener("change", (e) => {
@@ -131,7 +135,7 @@ document.addEventListener("change", (e) => {
   // 버튼에 들어있는 상품 id 가져오기
   const id = Number(cartBtn.dataset.id);
 
-  // id에 맞는 상품 객체 찾기
+  // 위에서 만든 beverage에서 id에 맞는 상품 객체 찾기
   const product = beverages.find((b) => b.id === id);
 
   // 현재 선택된 사이즈 값
@@ -153,3 +157,4 @@ document.addEventListener("change", (e) => {
   // 화면 가격 변경
   priceEl.textContent = `${changedPrice}원`;
 });
+

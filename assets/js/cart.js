@@ -81,7 +81,14 @@ export class Cart {
     this.render();
   }
 
-  /* 장바구니에 있는 물건들 총 계산  */
+  /* 장바구니에 담긴 전체 수량 계산 */
+  getTotalQuantity() {
+    return this.items.reduce((total, item) => {
+      return total + item.quantity;
+    }, 0);
+  }
+
+  /* 장바구니에 있는 물건들 총 계산 */
   getTotalPrice() {
     /* 지금까지 더해온 금액에 가격과 수량을 곱해서 더하기 */
     return this.items.reduce((total, item) => {
@@ -93,28 +100,33 @@ export class Cart {
     const cartList = document.querySelector(".cart-list");
     const cartTotal = document.querySelector(".cart-total");
 
+    // 현재 페이지에 장바구니 영역이 없으면 render 중단
+    if (!cartList || !cartTotal) return;
+
     cartList.replaceChildren();
-    /* 장바구니 비어있을 때 */
+
     if (this.items.length === 0) {
       cartList.insertAdjacentHTML("beforeend", "<p>장바구니가 비어 있습니다.</p>");
-      cartTotal.replaceChildren("총 금액: 0원");
+      cartTotal.textContent = "총 금액: 0원";
       return;
     }
 
     this.items.forEach(item => {
       const el = document.createElement("div");
+      el.classList.add("cart-item");
 
       el.insertAdjacentHTML("beforeend", 
         `
-        <h3>${item.name}</h3>
-        <p>${item.option}</p>
-        <p>${item.size}</p>
-        <p>${item.price}원</p>
-        <p>수량: ${item.quantity}</p>
-        <button class="minus-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">-</button>
-        <button class="plus-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">+</button>
-        <button class="remove-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">삭제</button>
-      `);
+          <h3>${item.name}</h3>
+          <p>${item.option}</p>
+          <p>${item.size}</p>
+          <p>${item.price}원</p>
+          <p>수량: ${item.quantity}</p>
+          <button class="minus-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">-</button>
+          <button class="plus-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">+</button>
+          <button class="remove-btn" data-id="${item.id}" data-option="${item.option}" data-size="${item.size}">삭제</button>
+        `
+      );
 
       cartList.insertAdjacentElement("beforeend", el);
     });
