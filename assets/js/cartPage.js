@@ -71,6 +71,7 @@ updatePaymentPrice();
 function applyCoupon() {
   /* 총 금액 가져오기 */
   const totalPrice = cart.getTotalPrice();
+  const inputCode = couponInput.value.trim().toUpperCase();
 
   /* 장바구니가 비어 있을 경우 */
   if (totalPrice === 0) {
@@ -81,49 +82,32 @@ function applyCoupon() {
     return;
   }
 
-  const inputCode = couponInput.value.trim().toUpperCase();
   /* 입력된 쿠폰 코드가 없을 경우 */
-  if (!inputCode) {
+  if (!inputCode) { 
     appliedCoupon = null;
     couponMessage.textContent = "쿠폰 코드를 입력해주세요.";
     couponCancelBtn.classList.add("hide");
     updatePaymentPrice();
     return;
   }
-  /* 쿠폰 입력 input의 값이 변경될 때 */
-  couponInput.addEventListener("input", () => {
-    if (couponInput.value.trim().toUpperCase() !== appliedCoupon.code) {
-      if (!appliedCoupon) return;
 
-      const inputCode = couponInput.value.trim().toUpperCase();
-
-      if (inputCode !== appliedCoupon.code) {
-        // 쿠폰 적용은 취소하지만, 입력창 값은 유지
-        cancelCoupon();
-
-        couponMessage.textContent = "쿠폰 코드가 변경되어 적용이 취소되었습니다.";
-      }
-    }
-  });
-
-  /* 쿠폰 찾기 */
+  // 입력한 쿠폰 코드와 일치하는 쿠폰 찾기
   const coupon = couponData.find((item) => {
     return item.code === inputCode;
   });
 
-  /* 쿠폰이 존재하지 않을 경우 */
+  // 쿠폰 번호가 couponData에 없는 경우
   if (!coupon) {
     appliedCoupon = null;
-    couponMessage.textContent = "존재하지 않는 쿠폰입니다.";
+    couponMessage.textContent = "유효하지 않은 쿠폰입니다.";
     couponCancelBtn.classList.add("hide");
     updatePaymentPrice();
     return;
   }
 
-  /* 쿠폰 사용 횟수 확인 */
   const usedCount = getCouponUsedCount(coupon.code);
 
-  /* 쿠폰 사용 횟수가 초과되었을 경우 */
+  /* 쿠폰 사용 횟수가 한도에 도달했을 경우 */
   if (usedCount >= coupon.limit) {
     appliedCoupon = null;
     couponMessage.textContent = "선착순 쿠폰이 모두 소진되었습니다.";
@@ -135,12 +119,11 @@ function applyCoupon() {
   /* 쿠폰 적용 */
   appliedCoupon = coupon;
 
-  /* 입력 필드에 쿠폰 코드 표시 */
+  /* 쿠폰 코드 입력 */
   couponInput.value = coupon.code;
-  /* 취소 버튼 표시 */
   couponCancelBtn.classList.remove("hide");
 
-  /* 메시지 표시 */
+  /* 쿠폰 적용 메시지 표시 */
   couponMessage.textContent = `${coupon.code} 쿠폰이 적용되었습니다. 남은 수량: ${coupon.limit - usedCount}개`;
 
   updatePaymentPrice();
