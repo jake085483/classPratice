@@ -194,6 +194,43 @@ button {
   height: fit-content;
 }
 
+.coupon-box {
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.coupon-input {
+  flex: 1;
+  min-width: 180px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.coupon-btn {
+  background: #333;
+  color: #fff;
+}
+
+.coupon-message {
+  width: 100%;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.discount-price,
+.final-price {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.final-price {
+  font-size: 1.2rem;
+}
+
 /* =========================
   반응형
 ========================= */

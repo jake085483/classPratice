@@ -21,4 +21,29 @@ const optionPriceMap = {
   ICE: 500
 };
 
-let walletAccount = 1540000; // 초기 지갑 금액
+/* localStorage에 저장된 walletAccount 값을 꺼내서 숫자로 바꿈 */
+let walletAccount = Number(localStorage.getItem("walletAccount")) || 1540000; // 초기 지갑 금액
+
+
+/* 
+  {
+    code: "쿠폰",
+    type: "퍼센트, 원",
+    value: 할인값,
+    limit: 사용 가능 횟수
+  },
+ */
+const couponData = [
+  {
+    code: "FIRST10",
+    type: "percent",
+    value: 100,
+    limit: 10
+  },
+  {
+    code: "COFFEE500",
+    type: "fixed",
+    value: 500,
+    limit: 10
+  }
+];
